@@ -1,23 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import shortid from 'shortid';
+
 
 function App() {
 
-  const [tarea, setTarea] = React.useState('')
-  const [tareas, setTareas] = React.useState([])
-  const [modoEdicion, setModoEdicion] = React.useState(false)
-  const [id, setId] = React.useState('')
-  const [error, setError] = React.useState(null)
+  const [tarea, setTarea] = useState('')
+  const [tareas, setTareas] = useState([])
+  const [modoEdicion, setModoEdicion] = useState(false)
+  const [id, setId] = useState('')
+  const [error, setError] = useState(null)
 
 
   const agregarTarea = e => {
     e.preventDefault()
     if(!tarea.trim()){
-      console.log('Elemento Vacío')
-      setError('Escriba algo por favor...')
+      setError('Debe escribir una tarea')
       return
     }
-    console.log(tarea)
 
     setTareas([
       ...tareas,
@@ -34,7 +33,6 @@ function App() {
   }
 
   const editar = item => {
-    console.log(item)
     setModoEdicion(true)
     setTarea(item.nombreTarea)
     setId(item.id)
@@ -43,8 +41,7 @@ function App() {
   const editarTarea = e => {
     e.preventDefault()
     if(!tarea.trim()){
-      console.log('Elemento Vacío')
-      setError('Escriba algo por favor...')
+      setError('Debe escribir una tarea')
       return
     }
 
@@ -60,8 +57,8 @@ function App() {
   }
 
   return (
-    <div className="container mt-5">
-      <h1 className="text-center">Administrador de tareas</h1>
+    <div className="container mt-3">
+      <div className="header">Administrador de tareas</div>
       <hr/>
       <div className="row">
         <div className="col-8">
@@ -70,7 +67,7 @@ function App() {
             {
 
               tareas.length === 0 ? (
-                <li className="list-group-item">No hay tareas</li>
+                <li className="list-group-item">No hay tareas registradas</li>
               ) : (
                 tareas.map(item => (
                   <li className="list-group-item" key={item.id}>
